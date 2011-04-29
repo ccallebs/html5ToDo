@@ -1,16 +1,90 @@
 <html>
    <head>
       <title>Awesome To-Do List</title>
+   <link href='http://fonts.googleapis.com/css?family=Damion' rel='stylesheet' type='text/css'>
+   <link href='http://fonts.googleapis.com/css?family=Waiting+for+the+Sunrise' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Neuton' rel='stylesheet' type='text/css'>
+
    <style type="text/css">
+	a {
+		color: #707070;
+	}
+
 	body {
-		font-family: sans-serif;
-		background-color: #f0f0f0;
-		color: #000;
+		font-family: 'Neuton';
+		background-color: #111b1c;
+		color: #fff;
+	}
+
+	#container {
+		width: 450px;
+		padding: 15px;
+		margin: 0 auto;
+		text-align: center;
+		background-color: #121d2b;
+		box-shadow: 5px 5px #818181;
+		-webkit-box-shadow: 5px 5px 4px #818181;
+		-moz-box-shadow: 5px 5px 4px #818181;
+	}
+
+	#container h1 {
+		font-family: Damion;
+	}
+
+	.toDoItem {
+		padding: 2px;
+		background-color: #363d52;
+		border-bottom: 1px dotted #f0f0f0;
+	}
+
+	#toDoList {
+		text-align: left;
+		margin-bottom: 15px;
 	}
 
 	.checked {
 		color: #999;
 	}
+
+.button {
+	display: inline-block;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	padding: .5em 2em .55em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+
+.orange {
+	color: #fef4e9;
+	border: solid 1px #da7c0c;
+	background: #f78d1d;
+	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+}
+
+.textbox {
+height: 35px;
+width: 221px;
+	color : #747862;
+	border:0;
+	padding:4px 8px;
+	margin-bottom:0px;
+border-radius: 3px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+	margin-right: 5px;
+
+}
    </style>
    <script type="text/javascript" src="json2.js"></script>
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
@@ -59,10 +133,12 @@
 
 		if (toDoItems[id].checked == "checked") {
 			toDoItems[id].checked = "";
+			$(this).next().removeClass("checked");
+		} else {
+			toDoItems[id].checked = "checked";
+			$(this).next().addClass("checked");
+		}
 
-
-
-		toDoItems[id].checked = (toDoItems[id].checked == "checked") ? "" : "checked";
 		localStorage.toDoItems = JSON.stringify(toDoItems);
 	});      
 });
@@ -74,10 +150,13 @@
    </script>
    </head>
    <body>
-	<h1>Awesome To-Do List</h1>
+	<div id="container">
+	<h1>Mega-Awesome To-Do List</h1>
 	<p>
-	   <input type="text" value="Enter your to-do..." id="item" /><input type="submit" value="Add" id="add" />
+	   <input class="textbox" type="text" value="Enter your to-do..." id="item" /><input type="submit" value="Add" id="add" class="button orange" />
 
 <div id="toDoList"></div>
+	Created by <a href="http://sudoit.org/">Chuck Callebs</a>
+	</div>
    </body>
 </html>
