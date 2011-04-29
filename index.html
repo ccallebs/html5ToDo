@@ -1,0 +1,83 @@
+<html>
+   <head>
+      <title>Awesome To-Do List</title>
+   <style type="text/css">
+	body {
+		font-family: sans-serif;
+		background-color: #f0f0f0;
+		color: #000;
+	}
+
+	.checked {
+		color: #999;
+	}
+   </style>
+   <script type="text/javascript" src="json2.js"></script>
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+   <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+   <script type="text/javascript">
+      $(document).ready(function() {
+		if (!localStorage.pageCount) {
+			localStorage.pageCount = 0;
+		}
+
+		if (localStorage.toDoItems) {
+			var toDoItems = JSON.parse(localStorage.toDoItems);
+
+			$.each(toDoItems, function() {
+				$("#toDoItem").tmpl(this).appendTo("#toDoList");
+			});
+		}
+	$('#add').click(function() {
+		var toDoItems;
+
+		if (localStorage.toDoItems)
+			toDoItems = JSON.parse(localStorage.toDoItems);
+		else
+			toDoItems = {}
+
+		var item = {
+			id: localStorage.pageCount,
+			text: $('#item').val(),
+			checked: ""
+		}
+
+		toDoItems[localStorage.pageCount] = item;
+
+		localStorage.toDoItems = JSON.stringify(toDoItems);
+		localStorage.pageCount = parseInt(localStorage.pageCount, 10) + 1;
+		$("#toDoItem").tmpl(item).appendTo("#toDoList");
+	});
+
+	$('#item').focus(function() {
+		$(this).val('');
+	});
+
+	$('input[type=checkbox]').click(function() {
+		var id = $(this).attr("id");
+		toDoItems = JSON.parse(localStorage.toDoItems);
+
+		if (toDoItems[id].checked == "checked") {
+			toDoItems[id].checked = "";
+
+
+
+		toDoItems[id].checked = (toDoItems[id].checked == "checked") ? "" : "checked";
+		localStorage.toDoItems = JSON.stringify(toDoItems);
+	});      
+});
+   </script>
+   <script type="jquery/x-jquery-tmpl" id="toDoItem" />
+	<div class="toDoItem">
+		<input type="checkbox" id="${id}" ${checked} /><span class="${checked}">${text}</span>
+	</div>
+   </script>
+   </head>
+   <body>
+	<h1>Awesome To-Do List</h1>
+	<p>
+	   <input type="text" value="Enter your to-do..." id="item" /><input type="submit" value="Add" id="add" />
+
+<div id="toDoList"></div>
+   </body>
+</html>
