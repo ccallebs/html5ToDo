@@ -120,7 +120,7 @@ border-radius: 3px;
 
 		localStorage.toDoItems = JSON.stringify(toDoItems);
 		localStorage.pageCount = parseInt(localStorage.pageCount, 10) + 1;
-		$("#toDoItem").tmpl(item).appendTo("#toDoList");
+		$("#toDoItem").tmpl(item).hide().appendTo("#toDoList").fadeIn();
 	});
 
 	$('#item').focus(function() {
